@@ -1,7 +1,0 @@
-# Environment variables
-.env
-.DS_Store
-
-#node Dependencies
-node_modules
-
