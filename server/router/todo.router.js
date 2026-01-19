@@ -29,6 +29,22 @@ router.post('/todo',async (req,res) => {
 
 });
 
+router.get('/todo',async (req,res) => {
+    
+   try {
+     const getTodo = await Todo.find()
+
+     res.status(200).json({
+        message : `ToDos fetched successfully`,
+        todos : getTodo
+
+     });
+    
+   } catch (error) {
+     res.status(500).json({message : error.message})
+   }
+
+})
 
 
 export default router;
