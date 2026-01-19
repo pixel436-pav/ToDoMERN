@@ -1,6 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import Todo from './models/ToDo.js'
+import router from './router/todo.router.js';
 
 
 dotenv.config();
@@ -22,15 +24,8 @@ mongoose.connect(mongoDbURL)
     }
     )
 
-app.post('/',async (req,res) => {
-  try {
 
-    
-  } catch (error) {
-    res.status(500).json({message : error.message})
-  }
-}
-)
+
 
 app.listen(PORT,() => {
     
@@ -38,6 +33,8 @@ app.listen(PORT,() => {
 
 
 })
+
+app.use('/api',router)
 
 app.get('/',(req,res) => {
 
