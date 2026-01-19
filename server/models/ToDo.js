@@ -7,6 +7,6 @@ const todoSchema = new Schema({
     completed : Boolean,
 },{timestamps:true});
 
-const todos = mongoose.model('Todo', todoSchema);
+const Todo = mongoose.model('Todo', todoSchema);
 
-export default todos;
+export default Todo;
