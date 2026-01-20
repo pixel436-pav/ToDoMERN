@@ -29,20 +29,15 @@ router.post('/todo',async (req,res) => {
 
 });
 
-router.get('/todo',async (req,res) => {
-    
-   try {
-     const getTodo = await Todo.find()
-
-     res.status(200).json({
-        message : `ToDos fetched successfully`,
-        todos : getTodo
-
-     });
-    
-   } catch (error) {
-     res.status(500).json({message : error.message})
-   }
+router.get('/todo', async (req,res) => {
+  try {
+    const getTodo = await Todo.find()
+    res.status(200).json({message:`Fetch Successful`,todos : getTodo})
+  } catch (error) {
+    res.status(500).json({message : error.message})
+  }
+}
+);
 
   
 router.delete('/todo/:id', async (req,res) => {
@@ -76,7 +71,7 @@ router.put('/todo/:id',async (req,res) => {
       return res.send(404).json({message : `Todo Not Found`})
     }
     
-    res.send(200).json({
+    res.status(200).json({
       message:'todo updated successfully',
       todos : updateTodo
     })
@@ -86,8 +81,47 @@ router.put('/todo/:id',async (req,res) => {
   }
 });
 
+router.get('/todo/:id',async (req,res) => {
 
-})
+    try {
+      const { id } = req.params
+      const findTodoById = await Todo.findById(id)
+      if(!findTodoById){
+        return res.status(404).json({message : `Todo not Find , Id might be invalid`})
+      }
+      res.status(200).json({
+        todos : findTodoById
+      })
+      
+    } catch (error) {
+      res.status(500).json({message : error.message})
+
+    }
+      
+    
+
+});
+
+router.patch('/todo/:id/toggle',async (req,res) => {
+
+  try {
+
+    const { id } = req.params
+    const toggleTodo = await  Todo.findById(id);
+    if(!toggleTodo){
+      return res.status(404).json({message:`Todo not Found Check your id`})
+    }
+    toggleTodo.completed = !toggleTodo.completed
+    await toggleTodo.save();
+    res.status(200).json({message:`toggled todo`, toggleTodo})
+
+  } catch (error) {
+    res.status(500).json({message: error.message})
+  }
+
+});
+
+
 
 
 export default router;
