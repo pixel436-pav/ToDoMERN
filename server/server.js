@@ -27,17 +27,18 @@ mongoose.connect(mongoDbURL)
 
 
 
-app.listen(PORT,() => {
-    
-    console.log(`App is listening of PORT ${PORT}`)
 
-
-})
 
 app.use('/api',router)
 
 app.get('/',(req,res) => {
 
     res.status(200).json({message : `Server Started Running`})
+
+})
+app.listen(PORT,() => {
+    
+    console.log(`App is listening of PORT ${PORT}`)
+
 
 })
