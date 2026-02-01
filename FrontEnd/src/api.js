@@ -10,12 +10,13 @@ export const testConnection = async () => {
     } catch (error) {
         console.error('Connection failed',error.message);
         return null;
-        
+
 
     }
 }
 
-export const getAllTodo = () => axios.get(API_URL);
+export const getAllTodo = async () => {const response = await axios.get(API_URL)
+    return response.data ;}
 
 export const createTodo = (data)=> axios.post(API_URL,data)
 
