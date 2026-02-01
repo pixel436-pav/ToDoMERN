@@ -1,35 +1,15 @@
-import React from 'react'
-import { useEffect, useState } from 'react';
-import {
-  getAllTodo,
-  createTodo,
-  deleteTodo,
-  toggleTodo,
-} from './api.js';
+import react from 'react'
+import { useState, useEffect } from 'react';
+import { getAllTodo, createTodo, updateTodo, toggleTodo, getTodoById, deleteTodo } from './api.js'
 
-function App(){
+function App ( ){
+const [todos,setTodos] = useState([])
 
-  const[todos, setTodos]= useState([]);
-  const [loading, setLoading] =useState(true);
+return (
 
-  useEffect(() => {
+  
 
-    fetchTodos();
-
-  },[])
-
-  const fetchTodos = async () => {
-    try {
-      const res = await getAllTodo();
-      setTodos(res.data);
-    } catch (error) {
-      console.error(error);
-    }
-    finally{
-      setLoading(false)
-    }
-  }
-
+)
 }
 
-
+export default App;
