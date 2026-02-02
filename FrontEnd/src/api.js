@@ -22,7 +22,7 @@ export const createTodo = (data)=> axios.post(API_URL,data)
 
 export const updateTodo = (id,updatedData) => axios.put(`${API_URL}/${id}`,updatedData)
 
-export const toggleTodo = (id)=>axios.patch(`${API_URL}/${id}`)
+export const toggleTodo = (id)=>axios.patch(`${API_URL}/${id}/toggle`)
 
 export const getTodoById = (id) =>
     axios.get(`${API_URL}/${id}`)
