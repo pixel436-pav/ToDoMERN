@@ -36,6 +36,31 @@ const fetchTodos = async () =>{
   } 
 }
 
+// Add a new Todo
+
+const handleAddTodo = async (e) => {
+  e.preventDefault();
+  if(!newTodo.trim()) return ;
+
+  try {
+    const newTodoItem = await createTodo({
+      text : newTodo,
+      completed: false
+    });
+    console.log( "response:",newTodoItem)
+    setTodos([...todos //this will create an array using all the existed todos 
+      ,newTodoItem]); // and this response.data will add the new Data 
+    setNewTodo(''); // after that this will fire which will reset the input field to empty so that next todo can be added 
+  } catch (error) {
+      console.error('Add error:', error);
+      alert('Failed to add todo');
+    
+  }
+
+  
+}
+
+
   // Toggle Complete status
 const handleToggle = async (id) => {
 
@@ -57,6 +82,12 @@ const handleToggle = async (id) => {
 return (
 
   <div>
+    <h1>ToDo App</h1>
+    <form onSubmit={handleAddTodo}>
+      <input type="text" value={newTodo} onChange={(e) => {
+        setNewTodo(e.target.value)}} placeholder='What need to be done?'/>
+        <button type='Submit' >Add Todo</button>
+    </form>
     <button onClick={fetchTodos}>retry</button>
     {todos.length === 0? ( <p>No Todos Yet -Add Your first One</p> ):( <ul>{todos.map(todo=> ( 
       <li key={todo._id} ><input type="checkbox" checked= {todo.completed || false } onChange={()=> handleToggle(todo._id)} /> <span> {todo.text} </span> </li> ) 
