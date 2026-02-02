@@ -60,6 +60,22 @@ const handleAddTodo = async (e) => {
   
 }
 
+// Delete a todo 
+const handleDelete = async (id) => {
+  try {
+    await deleteTodo(id) ; // Remove the deleted todo from State
+    setTodos(todos.filter(todo => todo._id !==id))
+
+  } catch (error) {
+    console.error('Delete Error:',error)
+    alert('Failed to Delete')
+    fetchTodos(); // Refresh todo on error
+    
+  }
+  
+}
+
+
 
   // Toggle Complete status
 const handleToggle = async (id) => {
@@ -90,7 +106,7 @@ return (
     </form>
     <button onClick={fetchTodos}>retry</button>
     {todos.length === 0? ( <p>No Todos Yet -Add Your first One</p> ):( <ul>{todos.map(todo=> ( 
-      <li key={todo._id} ><input type="checkbox" checked= {todo.completed || false } onChange={()=> handleToggle(todo._id)} /> <span> {todo.text} </span> </li> ) 
+      <li key={todo._id} ><input type="checkbox" checked= {todo.completed || false } onChange={()=> handleToggle(todo._id)} /> <span> {todo.text} </span> <button onClick={()=>handleDelete(todo._id)} >Delete</button></li> ) 
       )}</ul> )}
 
   </div>
