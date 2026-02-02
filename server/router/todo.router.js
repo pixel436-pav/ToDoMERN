@@ -32,7 +32,7 @@ router.post('/todo',async (req,res) => {
 router.get('/todo', async (req,res) => {
   try {
     const getTodo = await Todo.find()
-    res.status(200).json({message:`Fetch Successful`,todos : getTodo})
+    res.status(200).json({message:'Fetch Successful',todos : getTodo})
   } catch (error) {
     res.status(500).json({message : error.message})
   }
@@ -68,16 +68,16 @@ router.put('/todo/:id',async (req,res) => {
         {text,completed},
         {new:true});
     if (!updateTodo) {
-      return res.send(404).json({message : `Todo Not Found`})
+      return res.status(404).json({message : `Todo Not Found`})
     }
     
     res.status(200).json({
       message:'todo updated successfully',
-      todos : updateTodo
+      todo : updateTodo
     })
 
   } catch (error) {
-    res.send(500).json({message : error.message})
+    res.status(500).json({message : error.message})
   }
 });
 
@@ -90,7 +90,7 @@ router.get('/todo/:id',async (req,res) => {
         return res.status(404).json({message : `Todo not Find , Id might be invalid`})
       }
       res.status(200).json({
-        todos : findTodoById
+        todo : findTodoById
       })
       
     } catch (error) {
@@ -113,7 +113,7 @@ router.patch('/todo/:id/toggle',async (req,res) => {
     }
     toggleTodo.completed = !toggleTodo.completed
     await toggleTodo.save();
-    res.status(200).json({message:`toggled todo`, toggleTodo})
+    res.status(200).json({message:'toggled todo',todo: toggleTodo})
 
   } catch (error) {
     res.status(500).json({message: error.message})
